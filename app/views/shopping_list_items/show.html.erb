@@ -1,0 +1,31 @@
+<div class="page-header">
+  <h3>Shopping List Item #<%= @shopping_list_item.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>User</dt>
+      <dd><%= @shopping_list_item.user_id %></dd>
+
+      <dt>Item</dt>
+      <dd><%= @shopping_list_item.item_id %></dd>
+
+      <dt>Quantity</dt>
+      <dd><%= @shopping_list_item.quantity %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/shopping_list_items" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/shopping_list_items/<%= @shopping_list_item.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_shopping_list_item/<%= @shopping_list_item.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>

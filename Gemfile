@@ -11,6 +11,7 @@ group :development do
     gem "annotate"
     gem "better_errors"
     gem "starter_generators", :git => 'git://github.com/raghubetina/starter_generators.git'
+    gem 'pry'
 end
 
 

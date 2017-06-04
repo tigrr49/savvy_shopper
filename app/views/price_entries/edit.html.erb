@@ -1,0 +1,55 @@
+<!-- Validation failure messages -->
+<% if @price_entry.errors.any? %>
+  <% @price_entry.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Edit Price Entry #<%= @price_entry.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/update_price_entry/<%= @price_entry.id %>" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for item_id -->
+      <div class="form-group">
+        <label for="item_id" class="control-label">
+          Item
+        </label>
+
+        <input type="text" id="item_id" name="item_id" placeholder="Item" class="form-control" value="<%= @price_entry.item_id %>">
+      </div>
+
+      <!-- Label and input for store_id -->
+      <div class="form-group">
+        <label for="store_id" class="control-label">
+          Store
+        </label>
+
+        <input type="text" id="store_id" name="store_id" placeholder="Store" class="form-control" value="<%= @price_entry.store_id %>">
+      </div>
+
+      <!-- Label and input for price -->
+      <div class="form-group">
+        <label for="price" class="control-label">
+          Price
+        </label>
+
+        <input type="text" id="price" name="price" placeholder="Price" class="form-control" value="<%= @price_entry.price %>">
+      </div>
+
+      <button class="btn btn-warning">
+        Update Price Entry
+      </button>
+      or
+      <a href="/price_entries/<%= @price_entry.id %>">Cancel</a>
+    </form>
+  </div>
+</div>
