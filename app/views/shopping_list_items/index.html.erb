@@ -11,14 +11,16 @@
       <tr>
         <th>User</th>
         <th>Item</th>
+        <th>Brand</th>
         <th>Quantity</th>
         <th>Actions</th>
       </tr>
 
       <% @shopping_list_items.each do |shopping_list_item| %>
       <tr>
-        <td><%= shopping_list_item.user_id %></td>
-        <td><%= shopping_list_item.item_id %></td>
+        <td><%= shopping_list_item.user.first_name %></td>
+        <td><%= shopping_list_item.item.name %></td>
+        <td><%= shopping_list_item.item.brand %></td>
         <td><%= shopping_list_item.quantity %></td>
         <td>
           <a href="/shopping_list_items/<%= shopping_list_item.id %>" class="btn btn-primary">Show</a>

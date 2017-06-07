@@ -1,0 +1,115 @@
+<div class="page-header">
+  <h1>
+    Search for Item
+  </h1>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/search">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for category_id -->
+      <div class="form-group">
+        <label for="category_id" class="control-label">
+          Category
+        </label>
+
+        <%= select_tag(:category_id, options_from_collection_for_select(Category.all, :id, :name, @category), :class => "form-control", :include_blank => true) %>
+        <br>
+
+      <!-- Label and input for name -->
+      <div class="form-group">
+        <label for="existing_name" class="control-label">
+          Item
+        </label>
+
+        <%= select_tag(:name, options_for_select(Item.all.order(name: :asc).pluck(:name).uniq, @name), :class => "form-control", :include_blank => true) %>
+
+      </div>
+
+      <!-- Label and input for brand -->
+      <div class="form-group">
+        <label for="existing_brand" class="control-label">
+          Brand
+        </label>
+
+        <%= select_tag(:brand, options_for_select(Item.all.order(brand: :asc).pluck(:brand).uniq, @brand), :class => "form-control", :include_blank => true) %>
+      </div>
+
+      <button class="btn">
+        Execute Search
+      </button>
+
+    </form>
+  </div>
+</div>
+
+<br>
+
+<% if @search_flag == 1 %>
+
+<h3>
+  Search Results
+  <a href="/items/new" class="btn btn-md btn-danger" style="float: right">Add New Item</a>
+</h3>
+
+<% if @items_to_display == [] %>
+<h5>No items found</h5>
+<% else %>
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped table-hover">
+        <tr>
+          <th>On Sale</th>
+          <th>Category</th>
+          <th>Item</th>
+          <th>Brand</th>
+          <th>Size</th>
+          <th>Unit</th>
+          <th>Average Price</th>
+          <th>Average Unit Price</th>
+          <th>Actions</th>
+        </tr>
+
+
+        <% @items_to_display.each do |item| %>
+          <% if item.price_entries.count == 0 %>
+            <% item_average_price = "TBD" %>
+            <% average_unit_price = "TBD" %>
+          <% else %>
+            <% item_average_price = item.price_entries.pluck(:price).uniq.sum / item.price_entries.pluck(:price).uniq.count %>
+            <% average_unit_price = item_average_price / item.size %>
+          <% end %>
+
+          <tr>
+            <td>
+              <% if @items_on_sale_by_price_entry.index(item.id).is_a? Integer %>
+              <img src="http://cdn3.bigcommerce.com/s-6har9/templates/__custom/images/on-sale-flag.png?t=1492026172">
+              <% end %>
+            </td>
+            <td><%= item.category.name %></td>
+            <td><%= item.name %></td>
+            <td><%= item.brand %></td>
+            <td><%= item.size %></td>
+            <td><%= item.unit.name %></td>
+            <td><%= number_to_currency(item_average_price) %></td>
+            <td><%= number_to_currency(average_unit_price) %></td>
+            <td>
+              <div class="btn-group-vertical btn-group-sm">
+                <!-- <a href="/items/<%= item.id %>" class="btn btn-primary" style="text-align: center">Add to My Shopping List</a> -->
+                <a href="/price_entries/new/<%= item.id %>" class="btn btn-success" style="text-align: center" rel="nofollow">Add Price Entry</a>
+                <a href="/items/<%= item.id %>" class="btn btn-warning" style="text-align: center">View Details</a>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+
+  <% end %>
+<% end %>

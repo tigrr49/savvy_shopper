@@ -5,4 +5,6 @@ class Unit < ApplicationRecord
 
   has_many :items, :dependent => :destroy
 
+  has_many :price_entries, :through => :items, :source => :price_entries
+
 end

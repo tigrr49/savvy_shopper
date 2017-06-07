@@ -12,6 +12,29 @@
   <h3>Add Price Entry</h3>
 </div>
 
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Category</dt>
+      <dd><%= @item.category.name %></dd>
+
+      <dt>Item</dt>
+      <dd><%= @item.name %></dd>
+
+      <dt>Brand</dt>
+      <dd><%= @item.brand %></dd>
+
+      <dt>Size</dt>
+      <dd><%= @item.size %></dd>
+
+      <dt>Unit</dt>
+      <dd><%= @item.unit.name %></dd>
+    </dl>
+  </div>
+</div>
+
+
 <div class="row">
   <div class="col-md-12">
     <form action="/create_price_entry" method="post">
@@ -19,13 +42,16 @@
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
       <!-- Label and input for item_id -->
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="item_id" class="control-label">
           Item
         </label>
 
         <input type="text" id="item_id" name="item_id" placeholder="Item" class="form-control" value="<%= @price_entry.item_id %>">
-      </div>
+      </div> -->
+
+      <!-- Hidden input for item_id -->
+      <input type="hidden" name="item_id" value="<%= @item.id %>">
 
       <!-- Label and input for store_id -->
       <div class="form-group">
@@ -33,7 +59,9 @@
           Store
         </label>
 
-        <input type="text" id="store_id" name="store_id" placeholder="Store" class="form-control" value="<%= @price_entry.store_id %>">
+        <%= select_tag(:store_id, options_from_collection_for_select(Store.all, :id, :name), :class => "form-control", :include_blank => true) %>
+
+        <!-- <input type="text" id="store_id" name="store_id" placeholder="Store" class="form-control" value="<%= @price_entry.store_id %>"> -->
       </div>
 
       <!-- Label and input for price -->
@@ -49,7 +77,7 @@
         Create Price Entry
       </button>
       or
-      <a href="/price_entries">Cancel</a>
+      <a href="/items/<%= @item.id %>">Cancel</a>
     </form>
   </div>
 </div>

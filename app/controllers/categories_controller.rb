@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   def index
+    @category = Category.new
     @categories = Category.all
 
     render("categories/index.html.erb")
@@ -18,34 +19,36 @@ class CategoriesController < ApplicationController
   end
 
   def create
+    @categories = Category.all
+
     @category = Category.new
-
     @category.name = params[:name]
-
     save_status = @category.save
 
     if save_status == true
-      redirect_to("/categories/#{@category.id}", :notice => "Category created successfully.")
+      redirect_to("/categories/", :notice => "Category created successfully.")
     else
-      render("categories/new.html.erb")
+      render("categories/index.html.erb")
     end
   end
 
   def edit
     @category = Category.find(params[:id])
+    @category_to_update = Category.find(params[:id])
 
     render("categories/edit.html.erb")
   end
 
   def update
     @category = Category.find(params[:id])
+    @category_to_update = Category.find(params[:id])
 
-    @category.name = params[:name]
+    @category_to_update.name = params[:name]
 
-    save_status = @category.save
+    save_status = @category_to_update.save
 
     if save_status == true
-      redirect_to("/categories/#{@category.id}", :notice => "Category updated successfully.")
+      redirect_to("/categories/", :notice => "Category updated successfully.")
     else
       render("categories/edit.html.erb")
     end

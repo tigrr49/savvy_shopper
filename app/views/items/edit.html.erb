@@ -9,7 +9,7 @@
 <% end %>
 
 <div class="page-header">
-  <h3>Edit Item #<%= @item.id %></h3>
+  <h3>Edit Item Details</h3>
 </div>
 
 <div class="row">
@@ -24,7 +24,9 @@
           Category
         </label>
 
-        <input type="text" id="category_id" name="category_id" placeholder="Category" class="form-control" value="<%= @item.category_id %>">
+        <!-- <input type="text" id="category_id" name="category_id" placeholder="Category" class="form-control" value="<%= @item.category_id %>"> -->
+
+        <%= select_tag(:category_id, options_from_collection_for_select(Category.all, :id, :name, @item.category_id), :class => "form-control", :include_blank => true) %>
       </div>
 
       <!-- Label and input for name -->
@@ -60,7 +62,9 @@
           Unit
         </label>
 
-        <input type="text" id="unit_id" name="unit_id" placeholder="Unit" class="form-control" value="<%= @item.unit_id %>">
+        <!-- <input type="text" id="unit_id" name="unit_id" placeholder="Unit" class="form-control" value="<%= @item.unit_id %>"> -->
+
+        <%= select_tag(:unit_id, options_from_collection_for_select(Unit.all, :id, :name, @item.unit_id), :class => "form-control", :include_blank => true) %>
       </div>
 
       <button class="btn btn-warning">

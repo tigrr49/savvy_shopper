@@ -14,8 +14,9 @@ group :development do
     gem 'pry'
 end
 
-
 gem "binding_of_caller"
+gem 'custom_error_message', :git => 'https://github.com/jeremydurham/custom-err-msg.git'
+
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

@@ -4,6 +4,12 @@ GIT
   specs:
     starter_generators (0.9.6)
 
+GIT
+  remote: https://github.com/jeremydurham/custom-err-msg.git
+  revision: 3a8ec9dddc7a5b0aab7c69a6060596de300c68f4
+  specs:
+    custom_error_message (1.1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -183,6 +189,7 @@ DEPENDENCIES
   binding_of_caller
   byebug
   coffee-rails (~> 4.2)
+  custom_error_message!
   devise
   jbuilder (~> 2.5)
   jquery-rails

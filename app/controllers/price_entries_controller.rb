@@ -14,6 +14,8 @@ class PriceEntriesController < ApplicationController
   def new
     @price_entry = PriceEntry.new
 
+    @item = Item.find(params[:item_id])
+
     render("price_entries/new.html.erb")
   end
 
@@ -27,8 +29,9 @@ class PriceEntriesController < ApplicationController
     save_status = @price_entry.save
 
     if save_status == true
-      redirect_to("/price_entries/#{@price_entry.id}", :notice => "Price entry created successfully.")
+      redirect_to("/items/#{@price_entry.item.id}", :notice => "Price entry created successfully.")
     else
+      @item = Item.find(@price_entry.item_id)
       render("price_entries/new.html.erb")
     end
   end
@@ -53,6 +56,10 @@ class PriceEntriesController < ApplicationController
     else
       render("price_entries/edit.html.erb")
     end
+  end
+
+  def update_all
+
   end
 
   def destroy

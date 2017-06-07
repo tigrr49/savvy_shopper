@@ -100,7 +100,7 @@ c.unit_id = 5
 c.save
 
 d = Item.new
-d.category_id = 3
+d.category_id = 1
 d.name = "Chicken Wings"
 d.brand = "Tyson"
 d.size = 5
@@ -108,7 +108,7 @@ d.unit_id = 2
 d.save
 
 e = Item.new
-e.category_id = 3
+e.category_id = 4
 e.name = "Root Beer"
 e.brand = "Barq's"
 e.size = 2

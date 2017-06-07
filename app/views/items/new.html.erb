@@ -9,7 +9,7 @@
 <% end %>
 
 <div class="page-header">
-  <h3>Add Item</h3>
+  <h3>Add New Item</h3>
 </div>
 
 <div class="row">
@@ -24,25 +24,44 @@
           Category
         </label>
 
-        <input type="text" id="category_id" name="category_id" placeholder="Category" class="form-control" value="<%= @item.category_id %>">
+        <%= select_tag(:category_id, options_from_collection_for_select(Category.all, :id, :name, @item.category_id), :class => "form-control", :include_blank => true) %>
+
+        <!-- <input type="text" id="category_id" name="category_id" placeholder="Category" class="form-control" value="<%= @item.category_id %>"> -->
       </div>
 
       <!-- Label and input for name -->
       <div class="form-group">
-        <label for="name" class="control-label">
-          Name
+        <label for="existing_name" class="control-label">
+          Existing Item Name
         </label>
 
-        <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="<%= @item.name %>">
+        <%= select_tag(:existing_name, options_for_select(Item.all.order(name: :asc).pluck(:name).uniq, @existing_name), :class => "form-control", :include_blank => true) %>
+
+        <font color="red">or</font><br>
+
+        <label for="new_name" class="control-label">
+          New Item Name
+        </label>
+
+        <input type="text" id="new_name" name="new_name" placeholder="Name" class="form-control" value="<%= @new_name %>">
+
       </div>
 
       <!-- Label and input for brand -->
       <div class="form-group">
-        <label for="brand" class="control-label">
-          Brand
+        <label for="existing_brand" class="control-label">
+          Existing Brand
         </label>
 
-        <input type="text" id="brand" name="brand" placeholder="Brand" class="form-control" value="<%= @item.brand %>">
+        <%= select_tag(:existing_brand, options_for_select(Item.all.order(brand: :asc).pluck(:brand).uniq, @existing_brand), :class => "form-control", :include_blank => true) %>
+
+        <font color="red">or</font><br>
+
+        <label for="new_brand" class="control-label">
+          New Brand
+        </label>
+
+        <input type="text" id="new_brand" name="new_brand" placeholder="Brand" class="form-control" value="<%= @new_brand %>">
       </div>
 
       <!-- Label and input for size -->
@@ -51,7 +70,7 @@
           Size
         </label>
 
-        <input type="text" id="size" name="size" placeholder="Size" class="form-control" value="<%= @item.size %>">
+        <input type="text" id="size" name="size" placeholder="#.##" class="form-control" value="<%= @item.size %>">
       </div>
 
       <!-- Label and input for unit_id -->
@@ -60,14 +79,16 @@
           Unit
         </label>
 
-        <input type="text" id="unit_id" name="unit_id" placeholder="Unit" class="form-control" value="<%= @item.unit_id %>">
+        <%= select_tag(:unit_id, options_from_collection_for_select(Unit.all, :id, :name, @item.unit_id), :class => "form-control", :include_blank => true) %>
+
+        <!-- <input type="text" id="unit_id" name="unit_id" placeholder="Unit" class="form-control" value="<%= @item.unit_id %>"> -->
       </div>
 
       <button class="btn btn-success">
-        Create Item
+        Add New Item
       </button>
       or
-      <a href="/items">Cancel</a>
+      <a href="/search">Cancel</a>
     </form>
   </div>
 </div>

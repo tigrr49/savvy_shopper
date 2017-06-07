@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  devise_for :users
+
+  root to: "items#index_sale"
+
+
+
+
   # Routes for the Shopping_list_item resource:
   # CREATE
   get "/shopping_list_items/new", :controller => "shopping_list_items", :action => "new"
@@ -19,7 +26,7 @@ Rails.application.routes.draw do
 
   # Routes for the Price_entry resource:
   # CREATE
-  get "/price_entries/new", :controller => "price_entries", :action => "new"
+  get "/price_entries/new/:item_id", :controller => "price_entries", :action => "new"
   post "/create_price_entry", :controller => "price_entries", :action => "create"
 
   # READ
@@ -29,6 +36,8 @@ Rails.application.routes.draw do
   # UPDATE
   get "/price_entries/:id/edit", :controller => "price_entries", :action => "edit"
   post "/update_price_entry/:id", :controller => "price_entries", :action => "update"
+
+  get "/price_entries/update_all", :controller => "price_entries", :action => "update_all"
 
   # DELETE
   get "/delete_price_entry/:id", :controller => "price_entries", :action => "destroy"
@@ -59,6 +68,9 @@ Rails.application.routes.draw do
   # READ
   get "/items", :controller => "items", :action => "index"
   get "/items/:id", :controller => "items", :action => "show"
+
+  get "/saleitems", :controller => "items", :action => "index_sale"
+  get "/search", :controller => "items", :action => "search"
 
   # UPDATE
   get "/items/:id/edit", :controller => "items", :action => "edit"
@@ -103,9 +115,5 @@ Rails.application.routes.draw do
   #------------------------------
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
-root to: "home#index"
-
-devise_for :users
 
 end

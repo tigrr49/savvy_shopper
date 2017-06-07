@@ -10,6 +10,7 @@
     <table class="table table-striped table-hover">
       <tr>
         <th>Item</th>
+        <th>Brand</th>
         <th>Store</th>
         <th>Price</th>
         <th>Actions</th>
@@ -17,9 +18,10 @@
 
       <% @price_entries.each do |price_entry| %>
       <tr>
-        <td><%= price_entry.item_id %></td>
-        <td><%= price_entry.store_id %></td>
-        <td><%= price_entry.price %></td>
+        <td><%= price_entry.item.name %></td>
+        <td><%= price_entry.item.brand %></td>
+        <td><%= price_entry.store.name %></td>
+        <td><%= number_to_currency(price_entry.price) %></td>
         <td>
           <a href="/price_entries/<%= price_entry.id %>" class="btn btn-primary">Show</a>
           <a href="/price_entries/<%= price_entry.id %>/edit" class="btn btn-warning">Edit</a>
