@@ -12,83 +12,93 @@
   <h3>Add New Item</h3>
 </div>
 
-<div class="row">
-  <div class="col-md-12">
+
+  <div class="row">
     <form action="/create_item" method="post">
       <!-- Hidden input for authenticity token to protect from forgery -->
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-      <!-- Label and input for category_id -->
-      <div class="form-group">
-        <label for="category_id" class="control-label">
-          Category
-        </label>
+        <div class="col-md-12" style="margin-bottom: 1em">
+          <!-- Label and input for category_id -->
+          <label for="category_id" class="control-label">
+            Category
+          </label>
 
-        <%= select_tag(:category_id, options_from_collection_for_select(Category.all, :id, :name, @item.category_id), :class => "form-control", :include_blank => true) %>
+          <%= select_tag(:category_id, options_from_collection_for_select(Category.all, :id, :name, @item.category_id), :class => "form-control", :include_blank => true) %>
 
-        <!-- <input type="text" id="category_id" name="category_id" placeholder="Category" class="form-control" value="<%= @item.category_id %>"> -->
-      </div>
+          <!-- <input type="text" id="category_id" name="category_id" placeholder="Category" class="form-control" value="<%= @item.category_id %>"> -->
+        </div>
 
-      <!-- Label and input for name -->
-      <div class="form-group">
-        <label for="existing_name" class="control-label">
-          Existing Item Name
-        </label>
+        <div class="col-md-5" style="margin-bottom: 1em">
+          <!-- Label and input for name -->
+          <label for="existing_name" class="control-label">
+            Existing Item Name
+          </label>
+          <%= select_tag(:existing_name, options_for_select(Item.all.order(name: :asc).pluck(:name).uniq, @existing_name), :class => "form-control", :include_blank => true) %>
+        </div>
 
-        <%= select_tag(:existing_name, options_for_select(Item.all.order(name: :asc).pluck(:name).uniq, @existing_name), :class => "form-control", :include_blank => true) %>
+        <div class="col-md-2" style="text-align:center" style="margin-bottom: 1em">
+          <br>
+          <font color="red"><bold>-OR-</bold></font><br>
+        </div>
 
-        <font color="red">or</font><br>
+        <div class="col-md-5" style="margin-bottom: 1em">
+          <label for="new_name" class="control-label">
+            New Item Name
+          </label>
 
-        <label for="new_name" class="control-label">
-          New Item Name
-        </label>
+          <input type="text" id="new_name" name="new_name" placeholder="Name" class="form-control" value="<%= @new_name %>">
+        </div>
 
-        <input type="text" id="new_name" name="new_name" placeholder="Name" class="form-control" value="<%= @new_name %>">
+        <div class="col-md-5" style="margin-bottom: 1em">
+          <!-- Label and input for brand -->
+          <label for="existing_brand" class="control-label">
+            Existing Brand
+          </label>
 
-      </div>
+          <%= select_tag(:existing_brand, options_for_select(Item.all.order(brand: :asc).pluck(:brand).uniq, @existing_brand), :class => "form-control", :include_blank => true) %>
+        </div>
 
-      <!-- Label and input for brand -->
-      <div class="form-group">
-        <label for="existing_brand" class="control-label">
-          Existing Brand
-        </label>
+        <div class="col-md-2" style="text-align:center" style="margin-bottom: 1em">
+          <br>
+          <font color="red"><bold>-OR-</bold></font><br>
+        </div>
 
-        <%= select_tag(:existing_brand, options_for_select(Item.all.order(brand: :asc).pluck(:brand).uniq, @existing_brand), :class => "form-control", :include_blank => true) %>
+        <div class="col-md-5" style="margin-bottom: 1em">
+          <label for="new_brand" class="control-label">
+            New Brand
+          </label>
 
-        <font color="red">or</font><br>
+          <input type="text" id="new_brand" name="new_brand" placeholder="Brand" class="form-control" value="<%= @new_brand %>">
+        </div>
 
-        <label for="new_brand" class="control-label">
-          New Brand
-        </label>
+        <div class="col-md-12" style="margin-bottom: 1em">
+          <!-- Label and input for size -->
+          <label for="size" class="control-label">
+            Size
+          </label>
 
-        <input type="text" id="new_brand" name="new_brand" placeholder="Brand" class="form-control" value="<%= @new_brand %>">
-      </div>
+          <input type="text" id="size" name="size" placeholder="#.##" class="form-control" value="<%= @item.size %>">
+        </div>
 
-      <!-- Label and input for size -->
-      <div class="form-group">
-        <label for="size" class="control-label">
-          Size
-        </label>
+        <div class="col-md-12" style="margin-bottom: 1em">
+          <!-- Label and input for unit_id -->
+          <label for="unit_id" class="control-label">
+            Unit
+          </label>
 
-        <input type="text" id="size" name="size" placeholder="#.##" class="form-control" value="<%= @item.size %>">
-      </div>
+          <%= select_tag(:unit_id, options_from_collection_for_select(Unit.all, :id, :name, @item.unit_id), :class => "form-control", :include_blank => true) %>
 
-      <!-- Label and input for unit_id -->
-      <div class="form-group">
-        <label for="unit_id" class="control-label">
-          Unit
-        </label>
+          <!-- <input type="text" id="unit_id" name="unit_id" placeholder="Unit" class="form-control" value="<%= @item.unit_id %>"> -->
+        </div>
 
-        <%= select_tag(:unit_id, options_from_collection_for_select(Unit.all, :id, :name, @item.unit_id), :class => "form-control", :include_blank => true) %>
+        <div class="col-md-12" style="margin-bottom: 1em">
+          <button class="btn btn-success">
+            Add New Item
+          </button>
+          or
+          <a href="/search">Cancel</a>
+        </div>
 
-        <!-- <input type="text" id="unit_id" name="unit_id" placeholder="Unit" class="form-control" value="<%= @item.unit_id %>"> -->
-      </div>
-
-      <button class="btn btn-success">
-        Add New Item
-      </button>
-      or
-      <a href="/search">Cancel</a>
     </form>
   </div>
-</div>

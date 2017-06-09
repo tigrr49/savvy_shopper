@@ -5,55 +5,53 @@
 </div>
 
 
-<div class="row">
-  <div class="col-md-12">
-    <form action="/search">
-      <!-- Hidden input for authenticity token to protect from forgery -->
-      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+ <div class="row">
+   <form action="/search">
+     <!-- Hidden input for authenticity token to protect from forgery -->
+     <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-      <!-- Label and input for category_id -->
-      <div class="form-group">
-        <label for="category_id" class="control-label">
-          Category
-        </label>
+       <div class="col-sm-4" style="margin-bottom: 1em">
+         <!-- Label and input for category_id -->
+         <label for="category_id" class="control-label">
+           Category
+         </label>
 
-        <%= select_tag(:category_id, options_from_collection_for_select(Category.all, :id, :name, @category), :class => "form-control", :include_blank => true) %>
-        <br>
+         <%= select_tag(:category_id, options_from_collection_for_select(Category.all, :id, :name, @category), :class => "form-control", :include_blank => true) %>
+       </div>
 
-      <!-- Label and input for name -->
-      <div class="form-group">
-        <label for="existing_name" class="control-label">
-          Item
-        </label>
+       <div class="col-sm-4" style="margin-bottom: 1em">
+         <!-- Label and input for name -->
+         <label for="existing_name" class="control-label">
+           Item
+         </label>
 
-        <%= select_tag(:name, options_for_select(Item.all.order(name: :asc).pluck(:name).uniq, @name), :class => "form-control", :include_blank => true) %>
+         <%= select_tag(:name, options_for_select(Item.all.order(name: :asc).pluck(:name).uniq, @name), :class => "form-control", :include_blank => true) %>
+       </div>
 
-      </div>
+       <div class="col-sm-4" style="margin-bottom: 1em">
+         <!-- Label and input for brand -->
+         <label for="existing_brand" class="control-label">
+           Brand
+         </label>
 
-      <!-- Label and input for brand -->
-      <div class="form-group">
-        <label for="existing_brand" class="control-label">
-          Brand
-        </label>
+         <%= select_tag(:brand, options_for_select(Item.all.order(brand: :asc).pluck(:brand).uniq, @brand), :class => "form-control", :include_blank => true) %>
+       </div>
 
-        <%= select_tag(:brand, options_for_select(Item.all.order(brand: :asc).pluck(:brand).uniq, @brand), :class => "form-control", :include_blank => true) %>
-      </div>
+       <div class="col-md-12" style="margin-bottom: 1em">
+         <button class="btn">
+           Execute Search
+         </button>
+       </div>
 
-      <button class="btn">
-        Execute Search
-      </button>
+   </form>
+ </div>
 
-    </form>
-  </div>
-</div>
-
-<br>
 
 <% if @search_flag == 1 %>
 
 <h3>
   Search Results
-  <a href="/items/new" class="btn btn-md btn-danger" style="float: right">Add New Item</a>
+  <a href="/items/new" class="btn btn-md btn-danger">Add New Item</a>
 </h3>
 
 <% if @items_to_display == [] %>
