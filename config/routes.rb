@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   # Routes for the Shopping_list_item resource:
   # CREATE
   get "/shopping_list_items/new", :controller => "shopping_list_items", :action => "new"
-  post "/create_shopping_list_item", :controller => "shopping_list_items", :action => "create"
+  # post "/create_shopping_list_item", :controller => "shopping_list_items", :action => "create"
+
+  get "/create_shopping_list_item/:id", :controller => "shopping_list_items", :action => "create"
 
   # READ
   get "/shopping_list_items", :controller => "shopping_list_items", :action => "index"
@@ -20,8 +22,11 @@ Rails.application.routes.draw do
   get "/shopping_list_items/:id/edit", :controller => "shopping_list_items", :action => "edit"
   post "/update_shopping_list_item/:id", :controller => "shopping_list_items", :action => "update"
 
-  # DELETE
+  post "/inc_qty", :controller => "shopping_list_items", :action => "inc_qty"
+  post "/dec_qty", :controller => "shopping_list_items", :action => "dec_qty"
+
   get "/delete_shopping_list_item/:id", :controller => "shopping_list_items", :action => "destroy"
+  # DELETE
   #------------------------------
 
   # Routes for the Price_entry resource:

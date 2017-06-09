@@ -17,8 +17,11 @@ class ItemsController < ApplicationController
       item_average_price = item.price_entries.pluck(:price).uniq.sum / item.price_entries.pluck(:price).uniq.count
 
       item_price_entries.each do |price_entry|
-        # if the price entry is < 7 days old and price < average and the price entry is the latest for that store, add the price entry to the sale list
-        if Time.now - price_entry.created_at < 604800 && price_entry.price < item_average_price && price_entry.id == PriceEntry.where({:id => price_entry.id, :store_id => price_entry.store_id}).last.id
+        # if the price entry is < 7 days old, price < average, and the price entry is the latest for that store, add the price entry to the sale list
+        price_entry_for_compare = PriceEntry.where("item_id = ? AND store_id = ? AND created_at > ? AND price < ?", price_entry.item_id, price_entry.store_id, Time.now - 604800, item_average_price).last
+
+        next if price_entry_for_compare.blank?
+        if price_entry.id == price_entry_for_compare.id
           @items_on_sale_by_price_entry.push(price_entry)
         end
       end
@@ -62,12 +65,6 @@ class ItemsController < ApplicationController
       @search_flag = 1
     end
 
-    # if @category == "" && @name.nil? && @brand.nil?
-    #   @items_to_display = Item.first
-    #   @items_to_display.errors.add(:name, "^Please populate at least one parameter to execute a search.")
-    # end
-    # would also need to add the following line at the end of the if loop for errors in the view:
-    # @items_to_display = []
 
     @items_on_sale_by_price_entry = []
     @items_to_display.each do |item|
@@ -78,14 +75,15 @@ class ItemsController < ApplicationController
       item_average_price = item.price_entries.pluck(:price).uniq.sum / item.price_entries.pluck(:price).uniq.count
 
       item_price_entries.each do |price_entry|
-        # if the price entry is < 7 days old and price < average and the price entry is the latest for that store, add the price entry to the sale list
-        if Time.now - price_entry.created_at < 604800 && price_entry.price < item_average_price && price_entry.id == PriceEntry.where({:store_id => price_entry.store_id}).last.id
+        # if the price entry is < 7 days old, price < average, and the price entry is the latest for that store, add the price entry to the sale list
+        price_entry_for_compare = PriceEntry.where("item_id = ? AND store_id = ? AND created_at > ? AND price < ?", price_entry.item_id, price_entry.store_id, Time.now - 604800, item_average_price).last
+
+        next if price_entry_for_compare.blank?
+        if price_entry.id == price_entry_for_compare.id
           @items_on_sale_by_price_entry.push(price_entry.item_id)
         end
       end
     end
-
-
 
   end
 
@@ -126,8 +124,11 @@ class ItemsController < ApplicationController
       item_average_price = @item.price_entries.pluck(:price).uniq.sum / @item.price_entries.pluck(:price).uniq.count
 
       @item.price_entries.each do |price_entry|
-        # if the price entry is < 7 days old and price < average and the price entry is the latest for that store, add the price entry to the sale list
-        if Time.now - price_entry.created_at < 604800 && price_entry.price < item_average_price && price_entry.id == PriceEntry.where({:id => price_entry.id, :store_id => price_entry.store_id}).last.id
+        # if the price entry is < 7 days old, price < average, and the price entry is the latest for that store, add the price entry to the sale list
+        price_entry_for_compare = PriceEntry.where("item_id = ? AND store_id = ? AND created_at > ? AND price < ?", price_entry.item_id, price_entry.store_id, Time.now - 604800, item_average_price).last
+
+        next if price_entry_for_compare.blank?
+        if price_entry.id == price_entry_for_compare.id
           @where_item_on_sale.push(price_entry)
         end
       end

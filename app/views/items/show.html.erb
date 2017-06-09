@@ -108,7 +108,7 @@
           <td><%= price_entry.store.name %></td>
           <td><%= number_to_currency(price_entry.price) %></td>
           <td>
-            <a href="/items" class="btn btn-primary">
+            <a href="/create_shopping_list_item/<%= price_entry.id %>" class="btn btn-primary">
             Add to My Shopping List</a>
           </td>
         </tr>

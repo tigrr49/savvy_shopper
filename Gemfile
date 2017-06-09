@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 
+gem 'bcrypt', platforms: :ruby
 gem "devise"
 group :development do
     gem "annotate"

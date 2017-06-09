@@ -7,4 +7,6 @@ class Category < ApplicationRecord
 
   has_many :price_entries, :through => :items, :source => :price_entries
 
+  has_many :shopping_list_adds, :through => :items, :source => :shopping_list_adds
+
 end

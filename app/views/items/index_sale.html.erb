@@ -33,7 +33,7 @@
           <td><%= price_entry.store.name %></td>
           <td>
               <div class="btn-group-vertical btn-group-sm">
-                <a href="/items/<%= price_entry.item.id %>" class="btn btn-primary">Add to My Shopping List</a>
+                <a href="/create_shopping_list_item/<%= price_entry.id %>" class="btn btn-primary">Add to My Shopping List</a>
                 <a href="/items/<%= price_entry.item.id %>" class="btn btn-warning">View Details</a>
               </div>
             </div>

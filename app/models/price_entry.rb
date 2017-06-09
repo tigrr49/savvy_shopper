@@ -10,6 +10,8 @@ class PriceEntry < ApplicationRecord
 
   belongs_to :item
 
+  has_many :shopping_list_adds, :class_name => "ShoppingListItem", :dependent => :destroy
+
   has_one :category, :through => :item, :source => :category
 
   has_one :unit, :through => :item, :source => :unit
